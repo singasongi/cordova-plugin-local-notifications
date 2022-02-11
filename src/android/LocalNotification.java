@@ -99,6 +99,7 @@ public class LocalNotification extends CordovaPlugin {
      */
     @Override
     public void onDestroy() {
+        getNotMgr().cancelAll();
         deviceready = false;
     }
 
