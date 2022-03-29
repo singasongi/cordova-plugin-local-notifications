@@ -564,6 +564,8 @@ UNNotificationPresentationOptions const OptionAlert = UNNotificationPresentation
     _center.delegate = self;
     [_center registerGeneralNotificationCategory];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+
     [self monitorAppStateChanges];
 }
 
@@ -701,6 +703,13 @@ UNNotificationPresentationOptions const OptionAlert = UNNotificationPresentation
     } else {
         [self.eventQueue addObject:js];
     }
+}
+
+-(void) onAppTerminate:(NSNotification *)notification
+{
+    //cancelAll() code 
+    [_center cancelNotifications];
+    [self clearApplicationIconBadgeNumber];
 }
 
 @end
